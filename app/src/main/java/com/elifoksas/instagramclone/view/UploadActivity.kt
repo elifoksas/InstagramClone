@@ -1,4 +1,4 @@
-package com.elifoksas.instagramclone
+package com.elifoksas.instagramclone.view
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -13,10 +13,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.IntentCompat
-import com.elifoksas.instagramclone.databinding.ActivityMainBinding
 import com.elifoksas.instagramclone.databinding.ActivityUploadBinding
-import com.google.android.gms.auth.api.signin.internal.Storage
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
