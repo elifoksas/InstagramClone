@@ -25,6 +25,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import com.google.firebase.Timestamp
 import java.util.UUID
 
 class UploadActivity : AppCompatActivity() {
@@ -62,8 +63,33 @@ class UploadActivity : AppCompatActivity() {
         val reference = storage.reference
         val imageReference = reference.child("images").child(imageName)
 
+
         if (selectedPicture != null){
             imageReference.putFile(selectedPicture!!).addOnSuccessListener {
+                //download url -> firestore
+
+                val uploadPictureReference = storage.reference.child("images").child(imageName)
+                uploadPictureReference.downloadUrl.addOnSuccessListener {
+                    val downloadUrl = it.toString()
+
+                    if(auth.currentUser != null){
+                        val postMap = hashMapOf<String, Any>()
+                        postMap.put("downloadUrl",downloadUrl)
+                        postMap.put("userEmail",auth.currentUser!!.email!!)
+                        postMap.put("comment",binding.editTextComment.text.toString())
+                        postMap.put("date",Timestamp.now())
+
+                        firestore.collection("Posts").add(postMap).addOnSuccessListener {
+                            finish()
+                        }.addOnFailureListener {
+                            Toast.makeText(this@UploadActivity,it.localizedMessage,Toast.LENGTH_LONG).show()
+
+                        }
+                    }
+
+
+
+                }
 
             }.addOnFailureListener {
                 Toast.makeText(this,it.localizedMessage,Toast.LENGTH_LONG).show()

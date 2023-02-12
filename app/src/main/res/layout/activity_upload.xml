@@ -25,7 +25,7 @@
         android:layout_marginTop="44dp"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:text="Enter Comment"
+        android:hint="Enter Comment"
         android:textColor="@color/gray"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
