@@ -76,8 +76,15 @@ class UploadActivity : AppCompatActivity() {
                         postMap.put("comment",binding.editTextComment.text.toString())
                         postMap.put("date",Timestamp.now())
 
-                        firestore.collection("Posts").add(postMap).addOnSuccessListener {
-                            finish()
+                        firestore.collection("Posts").add(postMap).addOnCompleteListener { task ->
+
+                            if (task.isComplete && task.isSuccessful){
+
+                                //back
+                                finish()
+                            }
+
+
                         }.addOnFailureListener {
                             Toast.makeText(this@UploadActivity,it.localizedMessage,Toast.LENGTH_LONG).show()
 
